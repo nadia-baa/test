@@ -1,0 +1,25 @@
+
+<div [ngStyle]="{'margin':'auto', 'width': '90%', 'border-radius': '10px'}">
+    <table>
+        <tr>
+          <th>name</th>
+          <th>email</th>
+          <th>password</th>
+          <th>company</th>
+          <th>actions</th>
+        </tr>
+        
+        <tr *ngFor="let user of users | async">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ user.company }}</td>
+          <td><select name="" id="">
+            <option value=""></option>
+            <option value="1" (click)="toDo1(user.userId)">prerview</option>
+            <option value="1" (click)="toDo(user.userId)">edit</option>
+            <option value="2" (click)="delete(user)">delete</option>
+          </select></td>
+      </tr>
+      </table>
+</div>

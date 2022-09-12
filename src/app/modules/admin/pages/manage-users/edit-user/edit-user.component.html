@@ -1,0 +1,172 @@
+
+<div [ngStyle]="{'margin':'auto', 'width': '50%', 'height': '621.5px'}">
+    <div [ngStyle]="{'display':'flex'}">
+        <h1
+        (click)="displayUserForm()"
+        [ngStyle]="{'cursor':'pointer',
+                    'border-bottom':color,
+                    'padding-botom':'10px',
+                     'font-size': '25px',
+                     'font-weight':'bold',
+                     'text-align':'center',
+                       'width': '50%'}">edit user here</h1>
+        <h1 
+        (click)="displayRolesForm()"
+        [ngStyle]="{'cursor':'pointer',
+                    'padding-botom':'10px',
+                    'border-bottom':_color,
+                     'font-size': '25px',
+                     'font-weight':'bold',
+                     'text-align':'center',
+                     'width': '50%'}">roles</h1> 
+
+    </div>
+    <form 
+    [formGroup]="roleForm"
+    *ngIf="showRolesForm"
+    class="mt-8">
+        <h1 [ngStyle]="{'padding-left':'10px',
+                        'padding-bottom':'10px',
+                         'font-weight':'bold'}">add role</h1>
+        <mat-form-field class="w-full">
+            <input
+                id="password"
+                matInput
+                type="text"
+                placeholder="role..."
+                [formControlName]="'roleName'">
+            <button
+                mat-icon-button
+                type="button"
+                (click)="addRole()"
+                matSuffix>
+                <mat-icon
+                    class="icon-size-5"
+                    *ngIf="true"
+                    [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+            </button>
+            <mat-error>
+                Role name is required
+            </mat-error>
+        </mat-form-field>
+        <div [ngStyle]="{'margin-top':'5px',
+                         'border-bottom':'0.5px solid rgba(var(--fuse-border-rgb), var(--tw-border-opacity))',
+                         'padding-bottom':'5px',
+                         'padding-top':'5px',
+                         'padding-left':'5px',
+                         'display':'flex'
+                        }"
+              *ngFor="let role of myRoles">
+              <p [ngStyle]="{'width':'95%'}">{{ role.roleName }}</p>
+        
+        <button
+                mat-icon-button
+                type="button"
+                (click)="deleteRole(role.role_id)"
+                matSuffix>
+                <mat-icon
+                    class="icon-size-5"
+                    *ngIf="true"
+                    [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
+            </button>
+    </div>
+    </form>
+    <form
+    *ngIf="showUserForm"
+    class="mt-8"
+    [formGroup]="signUpForm"
+    #signUpNgForm="ngForm">
+
+    <!-- Name field -->
+    <mat-form-field class="w-full">
+        <mat-label>Full name</mat-label>
+        <input
+            id="name"
+            matInput
+            type="text"
+            [formControlName]="'name'">
+        <mat-error *ngIf="signUpForm.get('name').hasError('required')">
+            Full name is required
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Email field -->
+    <mat-form-field class="w-full">
+        <mat-label>Email address</mat-label>
+        <input
+            id="email"
+            matInput
+            [formControlName]="'email'">
+            
+        <mat-error *ngIf="signUpForm.get('email').hasError('required')">
+            Email address is required
+        </mat-error>
+        <mat-error *ngIf="signUpForm.get('email').hasError('email')">
+            Please enter a valid email address
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Password field -->
+    <mat-form-field class="w-full">
+        <mat-label>Password</mat-label>
+        <input
+            id="password"
+            matInput
+            type="password"
+            [formControlName]="'password'"
+            #passwordField>
+        <button
+            mat-icon-button
+            type="button"
+            (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+            matSuffix>
+            <mat-icon
+                class="icon-size-5"
+                *ngIf="passwordField.type === 'password'"
+                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+            <mat-icon
+                class="icon-size-5"
+                *ngIf="passwordField.type === 'text'"
+                [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+        </button>
+        <mat-error>
+            Password is required
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Company field -->
+    <mat-form-field class="w-full">
+        <mat-label>Company</mat-label>
+        <input
+            id="company-confirm"
+            matInput
+            [formControlName]="'company'">
+    </mat-form-field>
+
+    
+    <div class="inline-flex items-end w-full mt-1.5">
+        <mat-checkbox
+            [color]="'primary'"
+            [formControlName]="'isAdmin'">
+            make this user an admin?
+        </mat-checkbox>
+    </div>
+
+    <!-- Submit button -->
+    <button
+        class="fuse-mat-button-large w-full mt-6"
+        mat-flat-button
+        [color]="'primary'"
+        [disabled]="signUpForm.disabled"
+        (click)="toDo()">
+        <span *ngIf="!signUpForm.disabled">
+            save changes
+        </span>
+        <mat-progress-spinner
+            *ngIf="signUpForm.disabled"
+            [diameter]="24"
+            [mode]="'indeterminate'"></mat-progress-spinner>
+    </button>
+
+</form>
+</div>

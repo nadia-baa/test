@@ -1,0 +1,28 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    background-color: white;
+  }
+  
+  td, th {
+    border: none;
+    text-align: left;
+    padding: 8px;
+  }
+  tr{
+    border-bottom: 1px solid #dddddd;
+  }
+  tr:nth-child(even) {
+    background-color: white;
+  }
+
+  select{
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+  }
+  th {
+    background-color: rgba(var(--fuse-border-rgb), var(--tw-border-opacity));
+  }
